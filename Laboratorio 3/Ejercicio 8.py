@@ -1,0 +1,5 @@
+c=input("ingrese un texto: ")
+b=input("ingrese un texto: ")
+c=str(c)
+b=str(b)
+print(c,b)

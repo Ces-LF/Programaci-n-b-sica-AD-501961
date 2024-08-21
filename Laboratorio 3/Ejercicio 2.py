@@ -1,0 +1,8 @@
+c=input("ingresa un números entero: ")
+b=input("ingresa otro número entero: ")
+c=int(c)
+b=int(b)
+print("la suma es: ",c+b)
+print("su multiplicación es: ",c*b)
+print("la resta del primer número menos el segundo es: ",c-b)
+print("la división del primero entre el segundo es: ",c/b)
