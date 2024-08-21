@@ -1,5 +1,3 @@
-c=input("ingresa un valor: ")
-b=input("ingresa otro valor: ")
-c=int(c)
-b=int(b)
-print(b+c)
+c=input("ingresa tu nombre: ")
+b=input("ingresa tu edad: ")
+print("bienvenido",c,"de",b,"años")
