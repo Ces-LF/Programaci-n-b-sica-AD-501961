@@ -8,4 +8,4 @@ def max_num(c,b):
     elif b>c:
         return b
     
-print(max_num(c,b))
+print("el mayor es: ",max_num(c,b))
