@@ -1,7 +1,11 @@
-def max_num(num1,num2):
-    if num1>num2:
-        return num1
-    elif num2>num1:
-        return num2
+c=input("ingrese el primer número: ")
+c=int(c)
+b=input("ingrese el segundo número: ")
+b=int(b)
+def max_num(c,b):
+    if c>b:
+        return c
+    elif b>c:
+        return b
     
-print(max_num(10,6))
+print(max_num(c,b))
