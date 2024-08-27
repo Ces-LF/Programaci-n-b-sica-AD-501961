@@ -1,2 +1,2 @@
 c=input("ingresa una palabra: ")
-print("interesante"+c)
+print("interesante " + c)
