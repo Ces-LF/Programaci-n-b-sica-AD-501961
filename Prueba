@@ -1,2 +1,17 @@
-c=input("ingresa una palabra: ")
-print("interesante " + c)
+# Cadena de aminoácidos
+cadena = "MVKSVLASALFAVSALAASRTTAPSGAIVVAKSGGDYTTIGDAIDALSTSTTDTQTIFIEEGTYDEQVYL" \
+         "PAMTGKVIIYGQTENTDSYADNLVTITHAISYEDAGESDDLTATFRNKAVGSQVYNLNIANTCGQACHQA" \
+         "LALSAWADQQGYYGCNFTGYQDTLLAQTGNQLYINSYIEGAVDFIFGQHARAWFQNVDIRVVEGPTSASI" \
+         "TANGRSSETDTSYYVINKSTVAAKEGDDVAEGTYYLGRPWSEYARVVFQQTSMTNVINSLGWTEWSTSTP" \
+         "NTEYVTFGEYANTGAGSEGTRASFAEKLDAKLTITDILGSDYTSWVDTSYF"
+
+# Crear un diccionario para almacenar listas para cada aminoácido
+listas = {amino: [] for amino in set(cadena)}
+
+# Asignar cada aminoácido a su lista correspondiente
+for aminoácido in cadena:
+    listas[aminoácido].append(aminoácido)
+
+# Imprimir la longitud de cada lista
+for aminoácido, lista in listas.items():
+    print(f"Letra: {aminoácido} - Longitud de la lista: {len(lista)}")
