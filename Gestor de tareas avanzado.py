@@ -1,17 +1,17 @@
-import datetime
-import locale
+import datetime #para las fechas
+import locale #para las fechas locales
 
 try:
     locale.setlocale(locale.LC_ALL, "es_MX")
 except locale.Error:
     print("Advertencia: no se pudo establecer el locale 'es_MX'.")
-
+#saludo y entrada del nombre de usuario
 Nom = input("¡Hola!, ingresa tu nombre: ").strip()
 print(f"¡Hola! {Nom}, te doy la bienvenida a este gestor de tareas que te ayudará a mejorar el uso de tu tiempo")
 print("A continuación se desplegará un menú para que puedas gestionar tus tareas")
 
 Nuevas_tareas = []
-
+#almacenamiento de tareas
 def mostrar_tareas():
     if not Nuevas_tareas:
         print("No hay tareas disponibles.")
@@ -22,11 +22,11 @@ def mostrar_tareas():
             vencimiento_str = vencimiento.strftime("%d/%m/%Y") if vencimiento else "No asignado"
             descripcion_str = descripcion if descripcion else "No asignada"
             print(f"{i}. {nombre} - Vencimiento: {vencimiento_str} - Descripción: {descripcion_str}")
-
+#menú interactivo
 MenuGestor = int(input("Gestor de tareas \n1.- Nueva tarea \n2.- Eliminar tarea \n3.- Modificar tarea \n4.- Salir \n"))
 
 while MenuGestor != 4:
-    if MenuGestor == 1:
+    if MenuGestor == 1: #1.- Nueva tarea
         NewTask = input(f"{Nom}, asigna un nombre a la nueva tarea: ").strip()
         if NewTask:
             tarea = (NewTask, None, None)
@@ -35,7 +35,7 @@ while MenuGestor != 4:
         else:
             print(f"{Nom}, el nombre de la tarea no puede estar vacío.")
     
-    elif MenuGestor == 2:
+    elif MenuGestor == 2: #2.- Eliminar tarea
         if not Nuevas_tareas:
             print("Error: no hay tareas para eliminar.")
         else:
@@ -50,7 +50,7 @@ while MenuGestor != 4:
             except ValueError:
                 print("Entrada inválida. Ingresa un número sin decimales.")
     
-    elif MenuGestor == 3:
+    elif MenuGestor == 3: #3.- Modificar tareas
         if not Nuevas_tareas:
             print("Error: no hay tareas para modificar.")
         else:
@@ -59,6 +59,7 @@ while MenuGestor != 4:
                 i = int(input("Ingresa el número de la tarea que quieres modificar: "))
                 if 0 <= i < len(Nuevas_tareas):
                     nombre, vencimiento, descripcion = Nuevas_tareas[i]
+                    #Submenu para elegir las modificaciones a realizar en cada tarea
                     submenu = int(input("Modificar tareas \n1.- Asignar fecha de vencimiento \n2.- Añadir descripción \n3.- Cambiar nombre \n4.- Salir \n"))
                     
                     if submenu == 1:
@@ -98,5 +99,5 @@ while MenuGestor != 4:
         print("Opción no válida.")
     
     MenuGestor = int(input("Gestor de tareas \n1.- Nueva tarea \n2.- Eliminar tarea \n3.- Modificar tarea \n4.- Salir \n"))
-
+#Despedida
 print(f"¡Hasta luego {Nom}!")
