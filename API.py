@@ -6,10 +6,9 @@ arch = ""
 
 params = {
     "rq": {
-        "country": "MX",
         "kingdom": "plantae",
     },
-    "limit": 10
+    "limit": 1000
 }
 
 try:
@@ -40,11 +39,12 @@ try:
                     Nom = f"Nombre cientifico: {index_terms.get('genus', 'Dato no disponible').capitalize()} {index_terms.get('specificepithet', 'Dato no disponible')}"
                     Pa = f"Pais: {index_terms.get('country', 'Dato no disponible')}"
                     U = f"uuid: {item.get('uuid', 'Dato no disponible')}"
+                    E = f"etag: {item.get('etag', 'Dato no disponible')}"
                     Im = f"Imagen: {index_terms.get('hasImage')}"
                     if Im == True:
                        Im = f"Imagen: {index_terms.get('hasImage')}"
                     else: Im = "No hay imagen"
-                    arch += (f"{Dom}\n{Kin}\n{Div}\n{Cla}\n{Or}\n{Fam}\n{Gen}\n{Esp}\n{Nom}\n{Pa}\n{U}\n{Im}\n\n")
+                    arch += (f"{Dom}\n{Kin}\n{Div}\n{Cla}\n{Or}\n{Fam}\n{Gen}\n{Esp}\n{Nom}\n{Pa}\n{U}\n{E}\n{Im}\n\n")
 
         except ValueError:
             print("Error al decodificar la respuesta JSON.")
