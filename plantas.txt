@@ -1,0 +1,52 @@
+Dominio: Eukarya
+Reino: plantae
+Division: rhodophyta
+Clase: florideophyceae
+Orden: corallinales
+Familia: corallinaceae
+Genero: Haliptylon
+Especie: gracile
+Nombre cientifico: Haliptylon gracile
+Pais: mx
+uuid: aedf4c7f-e22c-4b34-8ab5-d73690635cff
+No hay imagen
+
+Dominio: Eukarya
+Reino: plantae
+Division: rhodophyta
+Clase: florideophyceae
+Orden: halymeniales
+Familia: halymeniaceae
+Genero: Grateloupia
+Especie: lanceolata
+Nombre cientifico: Grateloupia lanceolata
+Pais: mx
+uuid: afed22db-b192-42ed-932e-3341c1ae6df3
+No hay imagen
+
+Dominio: Eukarya
+Reino: plantae
+Division: rhodophyta
+Clase: florideophyceae
+Orden: corallinales
+Familia: corallinaceae
+Genero: Jania
+Especie: longiarthra
+Nombre cientifico: Jania longiarthra
+Pais: mx
+uuid: 3ffcc095-237e-4f54-94aa-b5491f782679
+No hay imagen
+
+Dominio: Eukarya
+Reino: plantae
+Division: charophyta
+Clase: charophyceae
+Orden: charales
+Familia: characeae
+Genero: Nitella
+Especie: furcata
+Nombre cientifico: Nitella furcata
+Pais: mx
+uuid: 504342bd-8f00-47c8-8609-26822169c82a
+No hay imagen
+
