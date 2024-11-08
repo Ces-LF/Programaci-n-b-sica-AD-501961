@@ -7,6 +7,7 @@ arch = ""
 params = {
     "rq": {
         "kingdom": "plantae",
+        "country": "mexico" 
     },
     "limit": 1000
 }
