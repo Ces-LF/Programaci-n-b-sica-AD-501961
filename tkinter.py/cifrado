@@ -1,0 +1,127 @@
+import requests
+from openpyxl import Workbook
+
+url = 'https://search.idigbio.org/v2/search/records/'
+
+archivo_nombre = "plantas1.txt"
+arch = ""
+
+params = {
+    "rq": {
+        "kingdom": "Plantae", 
+        "phylum": ["magnoliophyta", "pynophyta", "spermatophyta", "tracheophyta"],
+        "class": ["liliopsida", "magnoliopsida", "monocotyledonae", "dicotyledonae", "equisetopsida"]
+    },
+    "limit": 100  # Ajustamos el límite a 5000 para la paginación
+}
+
+# Inicializamos el offset
+offset = 0
+records = []
+
+# Realizamos las solicitudes hasta obtener todos los resultados
+while True:
+    params["offset"] = offset  # Ajustamos el offset
+    try:
+        response = requests.post(url, json=params)
+        if response.status_code == 200:
+            data = response.json()
+
+            # Verificar si los datos están en 'items' o 'results'
+            new_records = data.get("items") or data.get("results", [])
+            if not new_records:
+                print("No se encontraron 'items' ni 'results' en la respuesta.")
+                break  # Si no hay más resultados, salimos del ciclo
+            records.extend(new_records)  # Agregamos los nuevos resultados a la lista
+
+            # Si la cantidad de resultados obtenidos es menor al límite, terminamos la paginación
+            if len(new_records) < params["limit"]:
+                break
+            
+            # Actualizamos el offset para la siguiente página
+            offset += params["limit"]
+        else:
+            print(f"Error en la solicitud. Código de estado: {response.status_code}")
+            break
+    except requests.exceptions.RequestException as e:
+        print("Error en la solicitud:", e)
+        break
+
+# Generamos el archivo de texto
+for item in records:
+    index_terms = item.get("indexTerms", {})
+    lat = index_terms.get('geopoint', {}).get('lat', None)
+    lon = index_terms.get('geopoint', {}).get('lon', None)
+
+    Dom = "Dominio: Eukarya"
+    Kin = f"Reino: {index_terms.get('kingdom', 'Dato no disponible')}"
+    Div = f"Division: {index_terms.get('phylum', 'Dato no disponible')}"
+    Cla = f"Clase: {index_terms.get('class', 'Dato no disponible')}"
+    Or = f"Orden: {index_terms.get('order', 'Dato no disponible')}"
+    Fam = f"Familia: {index_terms.get('family', 'Dato no disponible')}"
+    Gen = f"Genero: {index_terms.get('genus', 'Dato no disponible')}"
+    Esp = f"Especie: {index_terms.get('specificepithet', 'Dato no disponible')}"
+    Nom = f"Nombre cientifico: {index_terms.get('scientificname', 'Dato no disponible').capitalize()}"
+    NomCom = f"Nombre comun: {index_terms.get('commonname', 'Dato no disponible')}"
+    Pa = f"Pais: {index_terms.get('country', 'Dato no disponible')}"
+    U = f"uuid: {item.get('uuid', 'Dato no disponible')}"
+    E = f"etag: {item.get('etag', 'Dato no disponible')}"
+    Gp = f"Geopunto: {index_terms.get('geopoint', 'Dato no disponible')}"
+    
+    if lat is not None and lon is not None:
+        if 23.166861 <= lat <= 27.758262 and -101.162811 <= lon <= -98.431148:
+            Gp = "Nuevo Leon"
+        elif 25.079642 <= lat <= 29.70575 and -102.175286 <= lon <= -101.559122:
+            Gp = "Cohahuila"
+        else:
+            Gp = "fuera del rango"
+    else:
+        Gp = "Coordenadas no disponibles"
+
+    arch += (f"{Dom}\n{Kin}\n{Div}\n{Cla}\n{Or}\n{Fam}\n{Gen}\n{Esp}\n{Nom}\n{NomCom}\n{Pa}\n{U}\n{E}\n{Gp}\n\n")
+
+# Guardar en archivo de texto
+with open(archivo_nombre, "w") as archivo:
+    archivo.write(arch)
+
+print("Generado: 'plantas1.txt'.")
+
+# Crear archivo Excel
+wb = Workbook()
+hoja = wb.active
+hoja.title = "Data"
+
+# Encabezados
+encabezados = [
+    "Dominio", "Reino", "División", "Clase", "Orden", 
+    "Familia", "Género", "Especie", "Nombre científico", "Nombre comun",
+    "País", "uuid", "etag", "latitud", "longitud"
+]
+hoja.append(encabezados)
+
+# Añadir filas al Excel
+for item in records:
+    index_terms = item.get("indexTerms", {})
+
+    fila = [
+        "Eukarya",  # Dominio
+        index_terms.get('kingdom', 'Dato no disponible'),
+        index_terms.get('phylum', 'Dato no disponible'),
+        index_terms.get('class', 'Dato no disponible'),
+        index_terms.get('order', 'Dato no disponible'),
+        index_terms.get('family', 'Dato no disponible'),
+        index_terms.get('genus', 'Dato no disponible'),
+        index_terms.get('specificepithet', 'Dato no disponible'),
+        index_terms.get('scientificname', 'Dato no disponible').capitalize(),
+        index_terms.get('commonname', 'Dato no disponible'),
+        index_terms.get('country', 'Dato no disponible'),
+        item.get('uuid', 'Dato no disponible'),
+        item.get('etag', 'Dato no disponible'),
+        index_terms.get('geopoint', {}).get("lat", None),
+        index_terms.get('geopoint', {}).get("lon", None)
+    ]
+
+    hoja.append(fila)
+
+wb.save("plantas1.xlsx")
+print("Generado: 'plantas1.xlsx'.")
