@@ -151,3 +151,4 @@ def elevar_matriz(A, potencia):
     return resultado
 
 
+
